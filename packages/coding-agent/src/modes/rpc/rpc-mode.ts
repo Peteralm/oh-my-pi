@@ -16,6 +16,7 @@ import { $env, isRecord, logger, Snowflake } from "@oh-my-pi/pi-utils";
 import { reset as resetCapabilities } from "../../capability";
 import { clearPluginRootsAndCaches, resolveActiveProjectRegistryPath } from "../../discovery/helpers";
 import {
+	type ExtensionStatusOptions,
 	type ExtensionUIContext,
 	type ExtensionUIDialogOptions,
 	type ExtensionUISelectItem,
@@ -943,7 +944,7 @@ export async function runRpcMode(
 			} as RpcExtensionUIRequest);
 		}
 
-		setStatus(key: string, text: string | undefined): void {
+		setStatus(key: string, text: string | undefined, options?: ExtensionStatusOptions): void {
 			// Fire and forget - no response needed
 			this.output({
 				type: "extension_ui_request",
@@ -951,6 +952,7 @@ export async function runRpcMode(
 				method: "setStatus",
 				statusKey: key,
 				statusText: text,
+				statusColor: options?.color,
 			} as RpcExtensionUIRequest);
 		}
 
